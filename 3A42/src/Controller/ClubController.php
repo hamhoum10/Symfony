@@ -35,14 +35,14 @@ class ClubController extends AbstractController
 
 
         return $this->render('club/affiche.html.twig',[
-            'listeTableau'=> $listTableau
+            'f'=> $listTableau
         ]);
     }
 
-   #[Route('/detail/{id}', name: 'app_club3')]
-    public function detail($id)
+   #[Route('/detail/{titre}', name: 'detailF')]
+    public function detail($titre)
     {return $this->render('club/detail.html.twig', [
-            'controller_name' => 'ClubController','nom'=>$id
+            't'=>$titre
         ]);
     }
 }

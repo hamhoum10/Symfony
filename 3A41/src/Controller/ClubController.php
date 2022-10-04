@@ -20,7 +20,7 @@ class ClubController extends AbstractController
         public function getName($nom): Response
         {
             return $this->render('club/detail.html.twig', [
-                'n' =>$nom,
+                'n' =>$nom
             ]);
         }
 
@@ -34,4 +34,12 @@ class ClubController extends AbstractController
                         'f' =>$formations,
                     ]);
                 }
+
+         #[Route('/detail/{titre}', name: 'detailF')]
+           public function detail($titre): Response
+                    {
+                        return $this->render('club/detail.html.twig', [
+                            't' => $titre,
+                        ]);
+                    }
 }

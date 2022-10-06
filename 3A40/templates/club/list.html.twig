@@ -1,8 +1,13 @@
 <h1>La liste des formations</h1>
-Le nombre de formation est {{f|length}}
-{% set a=0 %}
-{%for m in f %}
-{%set a=max(m.nb_participants,a) %}
+{# Recherche de max  #}
+{% set maxV=0 %}
+{% for k in f %}
+{% set maxV=max(maxV,k.nb_participants) %}
+{% endfor %}
+{# Recherche somme #}
+{% set S=0 %}
+{% for j in f %}
+{% set S=S+j.nb_participants %}
 {% endfor %}
 
 <table border="2">
@@ -11,29 +16,26 @@ Le nombre de formation est {{f|length}}
   <td>Titre</td>
   <td>Description</td>
   <td>NbrP</td>
-  <td>Action</td>
+  <td>Detail</td>
 </tr>
 {% for i in f %}
 {#{% if 'theorique' in i.Description %}#}
-{# {% if a==i.nb_participants %} #}
+{#{% if maxV==i.nb_participants %}#}
 <tr>
   <td>{{i.ref}}</td>
   <td>{{i.Titre|upper}}</td>
   <td>{{i.Description}}</td>
   <td>{{i.nb_participants}}</td>
-  <td><td><form action="{{path('detailF',{'titre':i.Titre }) }}">
-  <button>Participer</button></form>
-  <!--   ou bien aussi autre méthode-->
-  <a href="{{path('detailF',{'titre':i.Titre }) }}">participer</a></td>
+  <td><form action="{{path('detailF',{'titre':i.Titre}) }}">
+    <button>Participer</button></form>
+    <!--   ou bien aussi autre méthode-->
+    <a href="{{path('detailF',{'titre':i.Titre }) }}">participer</a></td>
+
+
 </tr>
 {#{% endif %}#}
-  {#{% endif %}#}
+{#{% endif %}#}
   {% endfor %}
-  {# calcul la somme des participants #}
-  {% set s=0 %}
-  {% for k in f %}
-  {% set s=s+k.nb_participants %}
-  {% endfor %}
-  <h3>Le nombre total est {{s}}</h3>
-</tr>
+
+<h3>Le nombre total est {{S}}</h3>
 </table>

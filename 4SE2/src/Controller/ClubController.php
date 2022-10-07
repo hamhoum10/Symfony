@@ -33,4 +33,12 @@ class ClubController extends AbstractController
                         'f' => $formations,
                     ]);
                 }
+
+                #[Route('/detail/{titre}', name: 'detailF')]
+                    public function detail($titre): Response
+                    {
+                        return $this->render('club/detail.html.twig', [
+                            't' => $titre,
+                        ]);
+                    }
 }

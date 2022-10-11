@@ -1,0 +1,15 @@
+<h2>La liste des classrooms</h2>
+<table>
+<tr>
+  <th>ID</th>
+  <th>Nom</th>
+  <th>Nombre</th>
+</tr>
+<tr>
+  {% for i in classrooms %}
+  <td>{{i.id}}</td>
+  <td>{{i.name}}</td>
+  <td>{{i.nombre}}</td>
+</tr>
+{%endfor %}
+</table>

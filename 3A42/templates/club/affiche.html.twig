@@ -21,10 +21,10 @@ Le nombre de formation est {{f|length}}
   <td>{{i.Titre|upper}}</td>
   <td>{{i.Description}}</td>
   <td>{{i.nb_participants}}</td>
-  <td><td><form action="{{path('detailF',{'titre':i.Titre }) }}">
+  <td><td><form action="{{path('detailF',{'titre':i.Titre, 'nbP':i.nb_participants }) }}">
   <button>Participer</button></form>
   <!--   ou bien aussi autre méthode-->
-  <a href="{{path('detailF',{'titre':i.Titre }) }}">participer</a></td>
+  <a href="{{path('detailF',{'titre':i.Titre,'nbP':i.nb_participants }) }}">participer</a></td>
 </tr>
 {#{% endif %}#}
 {#{% endif %}#}
@@ -35,5 +35,4 @@ Le nombre de formation est {{f|length}}
 {% set s=s+k.nb_participants %}
 {% endfor %}
 <h3>Le nombre total est {{s}}</h3>
-</tr>
 </table>

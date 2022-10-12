@@ -1,0 +1,20 @@
+<h1>La liste des classrooms</h1>
+<table>
+<tr>
+  <th>ID</th>
+  <th>Nom</th>
+  <th>Nombre</th>
+  <th>Action</th>
+</tr>
+<tr>
+  {% for i in classrooms %}
+  <td>{{i.id}}</td>
+  <td>{{i.name}}</td>
+  <td>{{i.nombre}}</td>
+  <td><form action="{{path('suppC',{'id':i.id}) }}">
+    <button>Supprimer</button></form>
+  </td>
+
+</tr>
+{% endfor %}
+</table>

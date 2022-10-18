@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Classroom;
 use App\Repository\ClassroomRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Request;
+use App\Form\ClassroomFormType;
 
 class ClassroomController extends AbstractController
 {
@@ -50,22 +52,37 @@ public function suppC(ManagerRegistry $doctrine,$id,ClassroomRepository $reposit
                       return $this->redirectToRoute("afficheC");
                   }
 
- #[Route('/addClub', name: 'app_addClub')]
-    public function addClub(ManagerRegistry $doctrine,Request $request)
-    {
-        $club= new Club();
-        $form=$this->createForm(ClubType::class,$club);
-        //$club->setName("club2");
-       //   $club->setDescription("description2");
-       //  $em= $this->getDoctrine()->getManager();
-        $form->handleRequest($request);
+ #[Route('/addclassroom', name: 'addclassroom')]
+    public function addclassroom(ManagerRegistry $doctrine,
+    Request $request){
+  $classroom= new Classroom();
+  $form=$this->createForm(ClassroomFormType::class,$classroom);
+  $form->handleRequest($request);
+  //Action d'ajout
         if($form->isSubmitted()){
             $em =$doctrine->getManager() ;
-            $em->persist($club);
+            $em->persist($classroom);
             $em->flush();
-            return $this->redirectToRoute("app_clubs");
-        }
-        return $this->renderForm("club/addClub.html.twig",
-            array("formClub"=>$form));
+            return $this->redirectToRoute("afficheC");}
+        return $this->renderForm("classroom/addClassroom.html.twig",
+            array("f"=>$form));
      }
+
+
+#[Route('/modifierclassroom/{id}', name: 'modifierclassroom')]
+    public function modifierclassroom(ManagerRegistry $doctrine,
+    Request $request,$id,ClassroomRepository $repository ){
+ //récupérer le classroom à modifier
+       $classroom= $repository->find($id);
+      $form=$this->createForm(ClassroomFormType::class,$classroom);
+  $form->handleRequest($request);
+  //Action de MAJ
+        if($form->isSubmitted()){
+            $em =$doctrine->getManager() ;
+            $em->flush();
+            return $this->redirectToRoute("afficheC");}
+        return $this->renderForm("classroom/addClassroom.html.twig",
+            array("f"=>$form));
+     }
+
 }

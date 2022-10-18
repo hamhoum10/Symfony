@@ -4,7 +4,9 @@
 <th>Id</th>
 <th>Nom</th>
 <th>Nombre</th>
-  <th>Action</th>
+  <th>Supprimer</th>
+  <th>Modifier</th>
+
 </tr>
 <tr>
 {% for i in classroom %}
@@ -13,6 +15,8 @@
 <td>{{i.nombre}}</td>
   <td>
     <a href="{{path('supprimerC',{'id':i.id}) }}">Supprimer</a></td>
+  <td><a href="{{path('modifierC',{'id':i.id}) }}">Modifier</a></td>
+
 </tr>
 {%endfor %}
 

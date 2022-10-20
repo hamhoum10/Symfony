@@ -4,7 +4,8 @@
   <th>ID</th>
   <th>Nom</th>
   <th>Nombre</th>
-  <th>Action</th>
+  <th>Action1</th>
+  <th>Action2</th>
 </tr>
 <tr>
   {% for i in classrooms %}
@@ -14,7 +15,9 @@
   <td><form action="{{path('suppC',{'id':i.id}) }}">
     <button>Supprimer</button></form>
   </td>
-
+  <td><form action="{{path('modifC',{'id':i.id}) }}">
+    <button>Modifier</button></form>
+  </td>
 </tr>
 {% endfor %}
 </table>

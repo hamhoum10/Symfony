@@ -1,0 +1,17 @@
+<h2>La liste des étudiants</h2>
+<table>
+<tr>
+<th>NSC</th>
+<th>Email</th>
+<th>Classe</th>
+
+</tr>
+<tr>
+{% for i in student %}
+<td>{{i.nsc}}</td>
+<td>{{i.email}}</td>
+<td>{{i.classroom.name}}</td>
+</tr>
+{%endfor %}
+
+</table>

@@ -13,3 +13,19 @@
 </tr>
 {% endfor %}
 </table>
+
+<h1>La liste des étudiants ordonée</h1>
+<table>
+<tr>
+  <th>NSC</th>
+  <th>Email</th>
+  <th>Nom de la classe</th>
+</tr>
+<tr>
+  {% for i in so %}
+  <td>{{i.nsc}}</td>
+  <td>{{i.email}}</td>
+  <td>{{i.classroom.name}}</td>
+</tr>
+{% endfor %}
+</table>

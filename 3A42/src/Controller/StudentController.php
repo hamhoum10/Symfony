@@ -6,10 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Repository\StudentRepository;
-use App\Form\StudentFormType;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Student;
+use App\Form\StudentFormType;
+use App\Form\SearchStudentFormType;
 
 class StudentController extends AbstractController
 {
@@ -45,4 +46,25 @@ class StudentController extends AbstractController
                           return $this->renderForm("student/addS.html.twig",
                               array("f"=>$form));
                        }
+
+
+
+
+            #[Route('/searchStudentByAVGG', name: 'searchStudentByAVG')]
+           public function searchStudentByAVG(Request $request,StudentRepository $student){
+
+                   $students = $student->findAll();
+                   $searchForm = $this->createForm(SearchStudentFormType::class);
+                   $searchForm->handleRequest($request);
+                   if ($searchForm->isSubmitted()) {
+                       $minMoy=$searchForm['min']->getData();
+                       $maxMoy=$searchForm['max']->getData();
+                       $resultOfSearch = $student->findStudentByAVG($minMoy,$maxMoy);
+                       return $this->renderForm('student/searchStudentByAVG.html.twig', [
+                           'Students'=>$resultOfSearch,
+                           'searchStudentByAVG' => $searchForm,]);
+                   }
+  return $this->renderForm('student/searchStudentByAVG.html.twig',
+   array('searchStudentByAVG'=>$searchForm,'Students'=>$students));
+               }
 }

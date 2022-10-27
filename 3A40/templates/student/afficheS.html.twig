@@ -12,3 +12,18 @@
 </tr>
 {% endfor %}
 </table>
+<h3>Affichage ordonée</h3>
+<table>
+<tr>
+  <th>nsc</th>
+  <th>email</th>
+  <th>nom de la classe</th>
+</tr>
+<tr>
+  {% for i in so %}
+  <td>{{i.nsc}}</td>
+  <td>{{i.email}}</td>
+  <td>{{i.classroom.name}}</td>
+</tr>
+{% endfor %}
+</table>

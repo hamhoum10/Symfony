@@ -9,7 +9,8 @@ use App\Repository\StudentRepository;
 use App\Entity\Student;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Form\StudentFormType;
+use App\Form\SearchStudentFormType;
+
 
 
 class StudentController extends AbstractController
@@ -23,14 +24,16 @@ class StudentController extends AbstractController
     }
 
      #[Route('/afficheS', name: 'afficheS')]
-                    public function afficheS(StudentRepository $repository): Response
+        public function afficheS(StudentRepository $repository): Response
                     {
-                    //utiliser la fonction findAll()
-                    $s=$repository->findAll();
-                        return $this->render('student/afficheS.html.twig', [
-                            'students' => $s,
+         //utiliser la fonction findAll()
+            $s=$repository->findAll();
+          //utiliser la fonction oderbymail
+          $so=$repository->orderByMail();
+       return $this->render('student/afficheS.html.twig', [
+        'students' => $s,'so'=>$so
                         ]);
-                        }
+         }
 
  #[Route('/addS', name: 'addS')]
  public function addS(ManagerRegistry $doctrine,Request $request)
@@ -45,5 +48,26 @@ class StudentController extends AbstractController
                return $this->renderForm("student/addS.html.twig",
                         array("f"=>$form));
                  }
+
+           #[Route('/searchStudentByAVG', name: 'searchStudentByAVG')]
+                      public function searchStudentByAVG(Request $request,StudentRepository $student){
+
+                              $students= $student->orderByMail();
+                              $searchForm = $this->createForm(SearchStudentFormType::class);
+                              $searchForm->handleRequest($request);
+                              if ($searchForm->isSubmitted()) {
+                                  $minMoy=$searchForm['min']->getData();
+                                  $maxMoy=$searchForm['max']->getData();
+                                  $resultOfSearch = $student->findStudentByAVG($minMoy,$maxMoy);
+                                  return $this->renderForm('student/searchStudentByAVG.html.twig', [
+                                      'Students'=>$resultOfSearch,
+                                      'searchStudentByAVG' => $searchForm,]);
+                              }
+             return $this->renderForm('student/searchStudentByAVG.html.twig',
+              array('Students' => $students,'searchStudentByAVG'=>$searchForm,
+                                  ));
+
+           }
+
 }
 

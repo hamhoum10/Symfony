@@ -42,7 +42,7 @@ class StudentRepository extends ServiceEntityRepository
     public function orderByMail()
             {
                 $qb=  $this->createQueryBuilder('s')
-                    ->orderBy('s.email', 'ASC');
+                    ->orderBy('s.email', 'DESC');
                 return $qb->getQuery()
                     ->getResult();
             }
